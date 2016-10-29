@@ -19,6 +19,7 @@ export getMediaItem from './get-media-item';
 export getMediaUrl from './get-media-url';
 export getSiteIconId from './get-site-icon-id';
 export getSiteIconUrl from './get-site-icon-url';
+export hasBrokenSiteUserConnection from './has-broken-site-user-connection';
 export isPrivateSite from './is-private-site';
 export isRequestingSharingButtons from './is-requesting-sharing-buttons';
 export isSavingSharingButtons from './is-saving-sharing-buttons';
