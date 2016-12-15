@@ -89,7 +89,7 @@ const hasShortContent = isRefreshedStream
  * @param  {object}   post     A post to classify
  * @return {object}            The classified post
  */
-function classifyPost( post ) {
+export function classifyPost( post ) {
 	const canonicalImage = post.canonical_image;
 	let displayType = DISPLAY_TYPES.UNCLASSIFIED,
 		canonicalAspect;
