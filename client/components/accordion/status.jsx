@@ -30,11 +30,13 @@ export default class AccordionStatus extends PureComponent {
 		] ),
 		text: PropTypes.node,
 		url: PropTypes.string,
-		position: PropTypes.string
+		position: PropTypes.string,
+		onClick: PropTypes.func
 	};
 
 	static defaultProps = {
-		type: 'info'
+		type: 'info',
+		onClick: () => {}
 	};
 
 	state = {};
@@ -52,12 +54,13 @@ export default class AccordionStatus extends PureComponent {
 		}
 	};
 
+	onClick = ( event ) => {
+		event.stopPropagation();
+		this.props.onClick();
+	};
+
 	toggleTooltip( isTooltipVisible ) {
 		this.setState( { isTooltipVisible } );
-	}
-
-	stopPropagation( event ) {
-		event.stopPropagation();
 	}
 
 	render() {
@@ -66,7 +69,7 @@ export default class AccordionStatus extends PureComponent {
 		return (
 			<a
 				href={ url }
-				onClick={ this.stopPropagation }
+				onClick={ this.onClick }
 				ref={ this.setTooltipContext }
 				onMouseEnter={ this.showTooltip }
 				onMouseLeave={ this.hideTooltip }
