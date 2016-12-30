@@ -56,7 +56,8 @@ const TermTreeSelectorList = React.createClass( {
 		lastPage: PropTypes.number,
 		onSearch: PropTypes.func,
 		onChange: PropTypes.func,
-		isError: PropTypes.bool
+		isError: PropTypes.bool,
+		height: PropTypes.number,
 	},
 
 	getInitialState() {
@@ -75,7 +76,8 @@ const TermTreeSelectorList = React.createClass( {
 			terms: [],
 			onSearch: () => {},
 			onChange: () => {},
-			onNextPage: () => {}
+			onNextPage: () => {},
+			height: 300
 		};
 	},
 
@@ -395,7 +397,7 @@ const TermTreeSelectorList = React.createClass( {
 		const searchLength = this.state.searchTerm.length;
 		const showSearch = ( searchLength > 0 || ! isCompact ) &&
 			( this.props.terms || ( ! this.props.terms && searchLength > 0 ) );
-		const { className, isError, loading, siteId, taxonomy, query } = this.props;
+		const { className, isError, loading, siteId, taxonomy, query, height } = this.props;
 		const classes = classNames( 'term-tree-selector', className, {
 			'is-loading': loading,
 			'is-compact': isCompact,
@@ -419,7 +421,7 @@ const TermTreeSelectorList = React.createClass( {
 				<VirtualScroll
 					ref={ this.setVirtualScrollRef }
 					width={ this.getResultsWidth() }
-					height={ isCompact ? this.getCompactContainerHeight() : 300 }
+					height={ isCompact ? this.getCompactContainerHeight() : height }
 					onRowsRendered={ this.setRequestedPages }
 					rowCount={ rowCount }
 					estimatedRowSize={ ITEM_HEIGHT }
