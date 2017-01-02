@@ -14,7 +14,7 @@
  */
 
 export canCurrentUser from './can-current-user';
-export getMySitesMenuItemTypes from './get-my-sites-menu-item-types';
+export getMenuItemTypes from './get-menu-item-types';
 export getSharingButtons from './get-sharing-buttons';
 export isPrivateSite from './is-private-site';
 export isRequestingSharingButtons from './is-requesting-sharing-buttons';
