@@ -146,11 +146,21 @@ export class MySitesSidebar extends Component {
 			return null;
 		}
 
+		let sparkline;
+		if ( ! site.jetpack && ! this.isItemLinkSelected( 'stats' ) ) {
+			sparkline = (
+				<img
+					className="sidebar__sparkline"
+					src={ `https://${ site.wpcom_url }/wp-includes/charts/admin-bar-hours-scale-2x.php?masterbar=1` } />
+			);
+		}
+
 		return (
 			<li className={ this.itemLinkClass( '/stats', 'stats' ) }>
 				<SiteStatsStickyLink onClick={ this.onNavigate }>
 					<Gridicon icon="stats-alt" size={ 24 } />
 					<span className="menu-link-text">{ this.props.translate( 'Stats' ) }</span>
+					{ sparkline }
 				</SiteStatsStickyLink>
 			</li>
 		);
