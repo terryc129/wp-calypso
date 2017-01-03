@@ -59,26 +59,13 @@ import { getLastStore } from 'reader/controller-helper';
 import { showSelectedPost } from 'reader/utils';
 
 export class FullPostView extends React.Component {
-	constructor( props ) {
-		super( props );
-		[
-			'handleBack',
-			'handleCommentClick',
-			'handleVisitSiteClick',
-			'handleLike',
-			'handleRelatedPostFromSameSiteClicked',
-			'handleRelatedPostFromOtherSiteClicked',
-		].forEach( fn => {
-			this[ fn ] = this[ fn ].bind( this );
-		} );
-		this.hasScrolledToCommentAnchor = false;
-	}
-
 	static propTypes = {
 		post: React.PropTypes.object.isRequired,
 		onClose: React.PropTypes.func.isRequired,
 		referralPost: React.PropTypes.object,
 	}
+
+	hasScrolledToCommentAnchor = false;
 
 	componentDidMount() {
 		KeyboardShortcuts.on( 'close-full-post', this.handleBack );
@@ -135,7 +122,7 @@ export class FullPostView extends React.Component {
 		KeyboardShortcuts.off( 'move-selection-up', this.goToPreviousPost );
 	}
 
-	handleBack( event ) {
+	handleBack = ( event ) => {
 		event.preventDefault();
 		recordAction( 'full_post_close' );
 		recordGaEvent( 'Closed Full Post Dialog' );
@@ -144,14 +131,14 @@ export class FullPostView extends React.Component {
 		this.props.onClose && this.props.onClose();
 	}
 
-	handleCommentClick() {
+	handleCommentClick = () => {
 		recordAction( 'click_comments' );
 		recordGaEvent( 'Clicked Post Comment Button' );
 		recordTrackForPost( 'calypso_reader_full_post_comments_button_clicked', this.props.post );
 		this.scrollToComments();
 	}
 
-	handleLike() {
+	handleLike = () => {
 		const { site_ID: siteId, ID: postId } = this.props.post;
 		let liked;
 
@@ -169,20 +156,20 @@ export class FullPostView extends React.Component {
 				{ context: 'full-post', event_source: 'keyboard' } );
 	}
 
-	handleRelatedPostFromSameSiteClicked() {
+	handleRelatedPostFromSameSiteClicked = () => {
 		recordTrackForPost( 'calypso_reader_related_post_from_same_site_clicked', this.props.post );
 	}
 
-	handleVisitSiteClick() {
+	handleVisitSiteClick = () => {
 		recordPermalinkClick( 'full_post_visit_link', this.props.post );
 	}
 
-	handleRelatedPostFromOtherSiteClicked() {
+	handleRelatedPostFromOtherSiteClicked = () => {
 		recordTrackForPost( 'calypso_reader_related_post_from_other_site_clicked', this.props.post );
 	}
 
 	// Does the URL contain the anchor #comments? If so, scroll to comments if we're not already there.
-	checkForCommentAnchor() {
+	checkForCommentAnchor = () => {
 		const hash = window.location.hash.substr( 1 );
 		if ( hash.indexOf( 'comments' ) > -1 ) {
 			this.hasCommentAnchor = true;
@@ -190,7 +177,7 @@ export class FullPostView extends React.Component {
 	}
 
 	// Scroll to the top of the comments section.
-	scrollToComments() {
+	scrollToComments = () => {
 		if ( ! this.props.post ) {
 			return;
 		}
@@ -225,7 +212,7 @@ export class FullPostView extends React.Component {
 		}, 0 );
 	}
 
-	parseEmoji() {
+	parseEmoji = () => {
 		if ( ! this.refs.article ) {
 			return;
 		}
@@ -235,7 +222,7 @@ export class FullPostView extends React.Component {
 		} );
 	}
 
-	attemptToSendPageView() {
+	attemptToSendPageView = () => {
 		const { post, site } = this.props;
 
 		if ( post && post._state !== 'pending' &&
