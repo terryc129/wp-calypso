@@ -55,8 +55,7 @@ import ReaderFullPostUnavailable from './unavailable';
 import ReaderFullPostBack from './back';
 import { isFeaturedImageInContent } from 'lib/post-normalizer/utils';
 import * as FeedStreamStoreActions from 'lib/feed-stream-store/actions';
-import feedStreamFactory from 'lib/feed-stream-store';
-import { getLastStoreId } from 'reader/controller-helper';
+import { getLastStore } from 'reader/controller-helper';
 import { showSelectedPost } from 'reader/utils';
 
 export class FullPostView extends React.Component {
@@ -73,11 +72,6 @@ export class FullPostView extends React.Component {
 			this[ fn ] = this[ fn ].bind( this );
 		} );
 		this.hasScrolledToCommentAnchor = false;
-
-		const storeId = getLastStoreId();
-		if ( storeId ) {
-			this.feedStore = feedStreamFactory( storeId );
-		}
 	}
 
 	static propTypes = {
@@ -258,16 +252,18 @@ export class FullPostView extends React.Component {
 	}
 
 	goToNextPost = () => {
-		if ( this.feedStore ) {
-			FeedStreamStoreActions.selectNextItem( getLastStoreId() );
-			showSelectedPost( { store: this.feedStore } );
+		if ( getLastStore() ) {
+			const store = getLastStore();
+			FeedStreamStoreActions.selectNextItem( store.getID() );
+			showSelectedPost( { store } );
 		}
 	}
 
 	goToPreviousPost = () => {
-		if ( this.feedStore ) {
-			FeedStreamStoreActions.selectPrevItem( getLastStoreId() );
-			showSelectedPost( { store: this.feedStore } );
+		if ( getLastStore() ) {
+			const store = getLastStore();
+			FeedStreamStoreActions.selectPrevItem( store.getID() );
+			showSelectedPost( { store } );
 		}
 	}
 
