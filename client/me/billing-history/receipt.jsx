@@ -14,6 +14,7 @@ import Card from 'components/card';
 import Main from 'components/main';
 import HeaderCake from 'components/header-cake';
 import purchasesPaths from 'me/purchases/paths';
+import DocumentHead from 'components/data/document-head';
 import QueryBillingData from 'components/data/query-billing-data';
 import { getPastBillingTransaction } from 'state/billing-data/selectors';
 
@@ -31,6 +32,7 @@ const BillingReceipt = React.createClass( {
 
 		return (
 			<Main>
+				{ this.renderTitle() }
 				<QueryBillingData />
 				<HeaderCake backHref={ purchasesPaths.billingHistory() }>
 					{ translate( 'Billing History' ) }
@@ -132,10 +134,16 @@ const BillingReceipt = React.createClass( {
 		);
 	},
 
+	renderTitle() {
+		const { translate } = this.props;
+		return <DocumentHead title={ translate( 'Billing History' ) } />;
+	},
+
 	renderPlaceholder() {
 		const { translate } = this.props;
 		return (
 			<Main>
+				{ this.renderTitle() }
 				<QueryBillingData />
 				<HeaderCake backHref={ purchasesPaths.billingHistory() }>
 					{ translate( 'Billing History' ) }

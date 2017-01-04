@@ -21,6 +21,7 @@ import UpcomingChargesTable from './upcoming-charges-table';
 import SectionHeader from 'components/section-header';
 import Main from 'components/main';
 import purchasesPaths from 'me/purchases/paths';
+import DocumentHead from 'components/data/document-head';
 import QueryBillingData from 'components/data/query-billing-data';
 import { getBillingData } from 'state/billing-data/selectors';
 
@@ -33,6 +34,7 @@ const BillingHistory = React.createClass( {
 
 		return (
 			<Main className="billing-history">
+				<DocumentHead title={ translate( 'Billing History' ) } />
 				<MeSidebarNavigation />
 				<QueryBillingData />
 				<PurchasesHeader section={ 'billing' } />
