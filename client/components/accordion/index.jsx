@@ -55,8 +55,8 @@ export default class Accordion extends Component {
 						{ icon && <span className="accordion__icon">{ icon }</span> }
 						<span className="accordion__title">{ title }</span>
 						{ subtitle && <span className="accordion__subtitle">{ subtitle }</span> }
-						{ status && <AccordionStatus { ...status } /> }
 					</button>
+					{ status && <AccordionStatus { ...status } /> }
 				</header>
 				<div className="accordion__content">
 					<div className="accordion__content-wrap">

@@ -54,11 +54,6 @@ export default class AccordionStatus extends PureComponent {
 		}
 	};
 
-	onClick = ( event ) => {
-		event.stopPropagation();
-		this.props.onClick();
-	};
-
 	toggleTooltip( isTooltipVisible ) {
 		this.setState( { isTooltipVisible } );
 	}
@@ -69,7 +64,7 @@ export default class AccordionStatus extends PureComponent {
 		return (
 			<a
 				href={ url }
-				onClick={ this.onClick }
+				onClick={ this.props.onClick }
 				ref={ this.setTooltipContext }
 				onMouseEnter={ this.showTooltip }
 				onMouseLeave={ this.hideTooltip }

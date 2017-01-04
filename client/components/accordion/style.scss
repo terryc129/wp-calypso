@@ -11,11 +11,14 @@ $accordion-background-expanded: $white;
 	position: relative;
 }
 
+.accordion__header {
+	position: relative;
+}
+
 .accordion__toggle {
 	display: block;
 	width: 100%;
 	cursor: pointer;
-	position: relative;
 	margin: 0;
 	padding: $accordion-padding;
 	padding-right: ( $accordion-padding + 22px );
@@ -147,6 +150,7 @@ $accordion-background-expanded: $white;
 	cursor: pointer;
 
 	.gridicon {
+		display: block;
 		width: 18px;
 		height: 18px;
 		margin: -2px;
