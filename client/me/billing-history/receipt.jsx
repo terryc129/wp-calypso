@@ -148,6 +148,13 @@ const BillingReceipt = React.createClass( {
 				<HeaderCake backHref={ purchasesPaths.billingHistory() }>
 					{ translate( 'Billing History' ) }
 				</HeaderCake>
+				<Card compact className="billing-history__receipt-card">
+					<div className="billing-history__receipt">
+						<div className="billing-history__receipt-loading">
+							{ translate( 'Loading…' ) }
+						</div>
+					</div>
+				</Card>
 			</Main>
 		);
 	},
