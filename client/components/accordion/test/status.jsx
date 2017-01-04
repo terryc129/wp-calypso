@@ -60,8 +60,8 @@ describe( 'AccordionStatus', function() {
 		const spy = sinon.spy();
 		const wrapper = shallow( <AccordionStatus onClick={ spy } /> );
 
-		wrapper.simulate( 'click', { stopPropagation() {} } );
+		wrapper.simulate( 'click' );
 
-		expect( spy ).to.have.been.calledWithExactly( /* no args */ );
+		expect( spy ).to.have.been.calledOnce;
 	} );
 } );
