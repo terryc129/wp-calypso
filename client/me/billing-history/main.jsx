@@ -3,6 +3,7 @@
  */
 var React = require( 'react' ),
 	isEmpty = require( 'lodash/isEmpty' );
+import { connect } from 'react-redux';
 
 /**
  * Internal dependencies
@@ -20,22 +21,23 @@ var observe = require( 'lib/mixins/data-observe' ),
 
 import Main from 'components/main';
 import purchasesPaths from 'me/purchases/paths';
+import QueryBillingData from 'components/data/query-billing-data';
+import { getBillingData } from 'state/billing-data/selectors';
 
-module.exports = React.createClass( {
-	displayName: 'BillingHistory',
-
-	mixins: [ observe( 'billingData', 'sites' ), eventRecorder ],
+const BillingHistory =  React.createClass( {
+	mixins: [ observe( 'sites' ), eventRecorder ],
 
 	render: function() {
-		var data = this.props.billingData.get();
-		const hasBillingHistory = ! isEmpty( data.billingHistory );
+		const { billingData, sites } = this.props;
+		const hasBillingHistory = ! isEmpty( billingData.past );
 
 		return (
 			<Main className="billing-history">
 				<MeSidebarNavigation />
+				<QueryBillingData />
 				<PurchasesHeader section={ 'billing' } />
 				<Card className="billing-history__receipts">
-					<BillingHistoryTable transactions={ data.billingHistory } />
+					<BillingHistoryTable transactions={ billingData && billingData.past } />
 				</Card>
 				<Card href={ purchasesPaths.purchasesRoot() }>
 					{ this.translate( 'Go to "Purchases" to add or cancel a plan.' ) }
@@ -44,7 +46,7 @@ module.exports = React.createClass( {
 					<div>
 						<SectionHeader label={ this.translate( 'Upcoming Charges' ) } />
 						<Card className="billing-history__upcoming-charges">
-							<UpcomingChargesTable sites={ this.props.sites } transactions={ data.upcomingCharges } />
+							<UpcomingChargesTable sites={ sites } transactions={ billingData && billingData.upcoming } />
 						</Card>
 					</div> }
 				{ config.isEnabled( 'upgrades/credit-cards' ) &&
@@ -53,3 +55,9 @@ module.exports = React.createClass( {
 		);
 	}
 } );
+
+export default connect(
+	( state ) => ( {
+		billingData: getBillingData( state )
+	} )
+)( BillingHistory );
