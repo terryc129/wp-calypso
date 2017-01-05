@@ -2,7 +2,7 @@
  * External dependencies
  */
 import { bindActionCreators } from 'redux';
-import { connect } from 'react-redux';
+import { connect } from 'react-redux';
 import i18n from 'i18n-calypso';
 import { has, identity, mapValues, pick, pickBy } from 'lodash';
 
@@ -10,7 +10,11 @@ import { has, identity, mapValues, pick, pickBy } from 'lodash';
  * Internal dependencies
  */
 import config from 'config';
-import { activateTheme, installAndActivate } from 'state/themes/actions';
+import {
+	activateTheme,
+	installAndActivate,
+	deleteTheme as deleteThemeAction
+} from 'state/themes/actions';
 import {
 	getThemeSignupUrl as getSignupUrl,
 	getThemePurchaseUrl as getPurchaseUrl,
@@ -68,6 +72,13 @@ const activateOnJetpack = {
 			! hasFeature( state, siteId, FEATURE_UNLIMITED_PREMIUM_THEMES ) // Pressable sites included -- they're always on a Business plan
 		)
 	)
+};
+
+const deleteTheme = {
+	label: i18n.translate( 'Delete' ),
+	action: deleteThemeAction,
+	hideForSite: ( state, siteId ) => ! isJetpackSite( state, siteId ),
+	hideForTheme: ( state, theme, siteId ) => isActive( state, theme.id, siteId ),
 };
 
 const customize = {
@@ -140,6 +151,7 @@ const ALL_THEME_OPTIONS = {
 	purchase,
 	activate,
 	activateOnJetpack,
+	deleteTheme,
 	tryandcustomize,
 	signup,
 	separator,

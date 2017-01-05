@@ -33,6 +33,8 @@ import {
 	PUBLICIZE_CONNECTION_UPDATE,
 	PUBLICIZE_CONNECTION_UPDATE_FAILURE,
 	SITE_FRONT_PAGE_SET_FAILURE,
+	THEME_DELETE_FAILURE,
+	THEME_DELETE_SUCCESS,
 } from 'state/action-types';
 
 import { dispatchSuccess, dispatchError } from './utils';
@@ -175,6 +177,8 @@ export const handlers = {
 	[ PUBLICIZE_CONNECTION_UPDATE_FAILURE ]: onPublicizeConnectionUpdateFailure,
 	[ GUIDED_TRANSFER_HOST_DETAILS_SAVE_SUCCESS ]: dispatchSuccess( translate( 'Thanks for confirming those details!' ) ),
 	[ SITE_FRONT_PAGE_SET_FAILURE ]: dispatchError( translate( 'An error occurred while setting the homepage' ) ),
+	[ THEME_DELETE_FAILURE ]: dispatchError( translate( 'Problem deleting. Check theme is not active.' ) ),
+	[ THEME_DELETE_SUCCESS ]: dispatchSuccess( translate( 'Theme deleted' ), { duration: 5000 } ),
 };
 
 /**
