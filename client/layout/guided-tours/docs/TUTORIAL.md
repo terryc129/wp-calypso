@@ -18,6 +18,8 @@ In addition, it will be useful to have thought about how we want to measure reac
 
 With that in mind, we can come up with the following steps:
 
+> Somewhere in this section, whether before or after the list, I'd make it clear that we're intentionally adding a lot of point for the sake of illustration, and that a better UX is generally one that minimizes interaction redundancy. What I mean by that is that, with most tours, developers should prefer an initial step that is ready for action: instead of asking for the user's time, directly point to the element(s) of interest; instead of adding a useless Next element, prefer a Continue step ready to react to the user's trigger (which is a confirmation of their interest to take the tour).
+
 1. Ask the user whether they want to learn how to preview their site. 
 2. Point to the site preview and tell the user to click their site's title so that the preview opens. 
 3. When the preview is showing, explain that this is the site preview. 
@@ -32,7 +34,48 @@ To start the tour, we need to provide a list of paths and a trigger function.
 
 We want our tour to start when the user is looking at their stats. We therefore use `[ '/stats' ]` as the path. Note that in the tour implementation, we can provide a single path as just a string as opposed to an array. 
 
-We only want our tour to show for users who have registered in the past 7 days. We express that by ...
+We only want our tour to show for users who have registered in the past 7 days. We express that by giving the `Tour` element an appropriate `when` attribute. 
+
+## Write the Tour
+
+Now we're ready to actually start writing our tour. 
+
+### Scaffolding etc.
+
+First we'll need to create a file for our tour. Add makeTour stuff and imports. Template:
+
+```
+...
+```
+
+Now add that tour to the tour list. 
+
+And add a feature flag to the dev environment. 
+
+### The Tour element
+
+Now in file between the makeTour paranthesis create the tour element:
+
+```
+<Tour
+	name="sitePreview"
+	version="20170104"
+	path="/stats"
+	when={ and( 
+		isNewUser, 
+		isEnabled( 'guided-tours/main' ),
+		) }
+	>
+	<!-- this is where the tour steps go ... -->
+</Tour>
+```
+
+- `name` is the tour's name. We use that to refer to it in the combine Tours thing and can later use it to force the tour to trigger via the query arg. 
+- `version`
+- `path`
+- `when`
+
+### Add an A/B Test
 
 Also: a/b test. 
 
@@ -46,9 +89,6 @@ Also: a/b test.
 
 abtest as last selector in trigger condition
 
-we should keep track of the tour
-there are tracks events for staring, quitting, and finishing tours
-
 custom styles:
 
 https://github.com/Automattic/wp-calypso/blob/2846567096f164c1426b223887039f79808ae612/client/layout/guided-tours/tours/theme-sheet-welcome-tour.js#L121
@@ -61,6 +101,8 @@ https://github.com/Automattic/wp-calypso/blob/2846567096f164c1426b223887039f7980
 ```
 
 animation delay: 
+
+Use sparingly, or don't. Before you do, ask yourself whether what you are attempting to solve can't be solved with better selectors for `when`.
 
 https://github.com/Automattic/wp-calypso/pull/10116/files
 
@@ -77,4 +119,6 @@ translation
 how to do the calls and when to add them (when copy has been reworked, also maybe after `en` a/b test)
 
 formatting with {{strong}} etc., adding GridIcons, ...
+
+IMO all of the Translation section can be distilled down to a very brief sentence (e.g. "regular Calypso guidelines apply: minimize string churn*, use proper formatting and component interpolation (cf. i18n-calypso) when needed")
 
