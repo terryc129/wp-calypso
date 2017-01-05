@@ -8,17 +8,15 @@ For more complete technical information, please see the existing tours (linked t
 
 ## What Do We Want To Achieve? 
 
-Before we think about what steps we want our tour to have, we should take a step back and think about what goals we want to achieve with our tour. 
+Before we think about what steps we want our tour to have, we should take a step back and think about **what goals we want to achieve** with our tour. 
 
 In this case, we might want to make sure new users understand where the site preview is and how it works. 
 
-In addition, it will be useful to have thought about how we want to measure reaching this goal. Here, we would hope that with our tour active, we would soon see an increase the usage of the site preview by new users. 
+In addition, we should think about how to **measure reaching this goal**. Here, we would hope that with our tour active, we would soon see an increase the usage of the site preview by new users. 
 
 ## Decide for Tour Steps
 
-With that in mind, we can come up with the following steps:
-
-> Somewhere in this section, whether before or after the list, I'd make it clear that we're intentionally adding a lot of point for the sake of illustration, and that a better UX is generally one that minimizes interaction redundancy. What I mean by that is that, with most tours, developers should prefer an initial step that is ready for action: instead of asking for the user's time, directly point to the element(s) of interest; instead of adding a useless Next element, prefer a Continue step ready to react to the user's trigger (which is a confirmation of their interest to take the tour).
+With that in mind, we can come up with this first draft for a set of steps:
 
 1. Ask the user whether they want to learn how to preview their site. 
 2. Point to the site preview and tell the user to click their site's title so that the preview opens. 
@@ -26,7 +24,16 @@ With that in mind, we can come up with the following steps:
 4. Show the user how to exit the preview and wait for them to do it. 
 5. Finish the tour. 
 
-We could have included a step — or even multiple steps — to explain the different device sizes, but it's advisable to start off with tours that are as short as possible to see how they perform. We can always come back and add additional steps. 
+We could have included a step — or even multiple steps — to explain the different device sizes or the SEO upgrade. But it's advisable to start off with tours that are as short as possible to see how they perform. We can always come back and add additional steps. 
+
+And in that spirit, we can iterate over the steps once more to reduce them. We don't **really** need steps to ask whether a user wants to take the tour or not, and we don't **really** need a finishing step. Also, we could exit the tour while the preview is still open so the user can explore it without a tour step showing. 
+
+With these thoughts, we can come up with these steps:
+
+1. Point to the site preview and tell the user to click their site's title to learn about the site preview. Provide a "Quit" button though so it's obvious what to do if they don't want to take the tour. 
+2. Show the user how to exit the preview, but finish the tour with the preview staying open. 
+
+And with that, we can now think about what will trigger our tour. 
 
 ## Decide for Triggers
 
