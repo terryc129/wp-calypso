@@ -6,6 +6,7 @@ import debugFactory from 'debug';
 import { localize } from 'i18n-calypso';
 import React, { Component, PropTypes } from 'react';
 import { connect } from 'react-redux';
+import { get } from 'lodash';
 
 /**
  * Internal dependencies
@@ -147,14 +148,14 @@ export class MySitesSidebar extends Component {
 			return null;
 		}
 
-		const siteId = site ? site.ID : null;
+		const isSelected = this.isItemLinkSelected( '/stats' );
 
 		return (
 			<li className={ this.itemLinkClass( '/stats', 'stats' ) }>
 				<SiteStatsStickyLink onClick={ this.onNavigate }>
 					<Gridicon icon="stats-alt" size={ 24 } />
 					<span className="menu-link-text">{ this.props.translate( 'Stats' ) }</span>
-					<StatsSparkline className="sidebar__sparkline" siteId={ siteId } />
+					{ ! isSelected && <StatsSparkline className="sidebar__sparkline" siteId={ get( site, 'ID' ) } /> }
 				</SiteStatsStickyLink>
 			</li>
 		);
