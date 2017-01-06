@@ -678,6 +678,7 @@ class SiteSettingsFormGeneral extends Component {
 		} = this.props;
 
 		const defaultFormats = [ 'F j, Y', 'Y-m-d', 'm/d/Y', 'd/m/Y' ];
+		const isCustomFormat = ! includes( defaultFormats, date_format );
 		const today = moment();
 
 		return (
@@ -699,7 +700,7 @@ class SiteSettingsFormGeneral extends Component {
 				) }
 				<FormLabel className="site-settings__date-time-format-custom">
 					<FormRadio
-						checked={ ! includes( defaultFormats, date_format ) }
+						checked={ isCustomFormat }
 						disabled={ isRequestingSettings }
 						name="date_format"
 						onChange={ this.handleRadio }
@@ -714,7 +715,10 @@ class SiteSettingsFormGeneral extends Component {
 							type="text"
 							value={ date_format || '' }
 						/>
-						{ date_format ? today.format( phpToMomentDatetimeFormat( date_format ) ) : '' }
+						{ isCustomFormat && date_format
+							? today.format( phpToMomentDatetimeFormat( date_format ) )
+							: ''
+						}
 					</span>
 				</FormLabel>
 			</FormFieldset>
@@ -730,6 +734,7 @@ class SiteSettingsFormGeneral extends Component {
 		} = this.props;
 
 		const defaultFormats = [ 'g:i a', 'g:i A', 'H:i' ];
+		const isCustomFormat = ! includes( defaultFormats, time_format );
 		const today = moment();
 
 		return (
@@ -751,7 +756,7 @@ class SiteSettingsFormGeneral extends Component {
 				) }
 				<FormLabel className="site-settings__date-time-format-custom">
 					<FormRadio
-						checked={ ! includes( defaultFormats, time_format ) }
+						checked={ isCustomFormat }
 						disabled={ isRequestingSettings }
 						name="time_format"
 						onChange={ this.handleRadio }
@@ -766,7 +771,10 @@ class SiteSettingsFormGeneral extends Component {
 							type="text"
 							value={ time_format || '' }
 						/>
-						{ time_format ? today.format( phpToMomentDatetimeFormat( time_format ) ) : '' }
+						{ isCustomFormat && time_format
+							? today.format( phpToMomentDatetimeFormat( time_format ) )
+							: ''
+						}
 					</span>
 					<FormSettingExplanation>
 						<a href="https://codex.wordpress.org/Formatting_Date_and_Time">
